@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="Login">
+    <form id="form" action="#" name="mail" onsubmit="return validateForm()" method="post" >
+        Email: <input type="text" name="email">
+        <br><br>
+        Password: <input type="password" id="password" oninput="validateForm()">
+        <span id="password-message"></span>
+        <br><br>
+        <input class="button" type="submit" value="Login">
+    </form>
+    
+</div>
+    <script>
+        // it use oninput  for real-time validation & given function attributes
+        function validateForm() {
+            var email = document.mail.email.value;
+            var password = document.getElementById("password");
+            var passwordMessage = document.getElementById("password-message");
+            // Regular expression to check if the password contains !, @, #, or $
+            var regex = /[!@#$]/;
+
+            var atPosition = email.indexOf("@");
+            var dotPosition = email.lastIndexOf(".");
+
+            if (atPosition < 1 || dotPosition < atPosition + 2 || dotPosition + 2 >= email.length) {
+                alert("Enter a valid email address\n atPosition: " + atPosition + "\n dotPosition: " + dotPosition);
+                return false;
+            } else if (!regex.test(password.value)) {
+                passwordMessage.textContent = "Password must contain !, @, #, or $";
+                passwordMessage.style.color = "red";
+                return false;
+            } else {
+                passwordMessage.textContent = "Password is valid";
+                passwordMessage.style.color = "blue";
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>
